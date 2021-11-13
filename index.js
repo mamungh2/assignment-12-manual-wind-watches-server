@@ -21,6 +21,7 @@ async function run() {
         const productsCollection = database.collection("products");
         const ordersCollection = database.collection("orders");
         const usersCollection = database.collection('users');
+        const reviewsCollection = database.collection('reviews');
 
         // get method to get all products
         app.get('/products', async (req, res) => {
@@ -118,7 +119,12 @@ async function run() {
             res.json(result);
         })
 
-        ///////////////////////////////////////////
+        // post method to insert a review
+        app.post('/reviews', async (req, res) => {
+            const review = req.body;
+            const result = await reviewsCollection.insertOne(review);
+            res.json(result);
+        })
 
 
         // delete a product by id
