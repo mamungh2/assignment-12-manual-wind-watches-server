@@ -65,6 +65,13 @@ async function run() {
             res.json({ admin: isAdmin });
         })
 
+        // get method to get all review from database
+        app.get('/reviews', async (req, res) => {
+            const cursor = reviewsCollection.find({});
+            const reviews = await cursor.toArray();
+            res.json(reviews);
+        })
+
         // put method to update a order status
         app.put('/orders/:id', async (req, res) => {
             const id = req.params.id;
@@ -123,6 +130,7 @@ async function run() {
         app.post('/reviews', async (req, res) => {
             const review = req.body;
             const result = await reviewsCollection.insertOne(review);
+            console.log(review);
             res.json(result);
         })
 
